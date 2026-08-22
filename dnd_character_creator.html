@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>DnD Character Creator</title>
+	<link rel="stylesheet" href="./style/index.css"></link>
+	<script src="./script/nav.js"></script>
+    </head>
+    <body>
+<article id="library">
+    <h1>Your Characters</h1>
+    <section id="deck">
+	<card id="add"></card> <!-- background plus symbol -->
+    </section>
+</article>
+
+<template id="cardTemplate">
+	<card> <!-- template -->
+	    <h2 id="characterName">Nelson</h2>
+	    <!-- Figure goes here -->
+	</card>
+</template>
+
+<template id="figureTemplate">
+    <figure>
+	<img class="head" />
+	<img class="body" />
+	<img class="legs" />
+	<img class="feet" />
+    </figure>
+</template>
+
+<script>
+const createCharacterFigure = (images = []) => {
+    const figure = document.getElementById("figureTemplate").content.cloneNode(true);
+    images.forEach(imageName => {
+	const bodyPart = imageName.split(".webp")[0].split("_")[2];
+	const img = figure.querySelector(`.${bodyPart}`);
+	img.src = "./assets/character_images/" + imageName;
+	if (imageName.charAt(0) === "m") {
+	    img.alt = "male" + imageName.split(".webp")[0].replaceAll("_", " ").slice(1);
+	} else {
+	    img.alt = "female" + imageName.split(".webp")[0].replaceAll("_", " ").slice(1);
+	}
+    });
+    return figure;
+};
+
+const createCharacterCard = (name, images) => {
+    const card = document.getElementById("cardTemplate").content.cloneNode(true);
+    card.getElementById("characterName").textContent = name;
+    card.children[0].appendChild(createCharacterFigure(images));
+    document.getElementById("deck").appendChild(card);
+};
+
+Object.entries(window.characters).forEach(character => createCharacterCard(...character) );
+</script>
+
+<article id="view_placeholder"></article>
+    </body>
+</html>

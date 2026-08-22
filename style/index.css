@@ -1,0 +1,118 @@
+* {
+    user-select: none;
+    box-sizing: border-box;
+}
+
+body * {
+//    border: 1px solid black;
+//    border-style: inset;
+}
+
+
+html, body {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    overflow: hidden;
+}
+
+article {
+    /* change to 50% when 100vw >= 850px */
+    width: 100%;
+    height: 100%;
+}
+
+section#deck {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    align-items: stretch;
+    overflow-y: auto;
+    /* subtract 2em for <h1>, 2em for top & bottom padding... */
+    height: calc(100% - 5em);
+    padding-bottom: var(--space, 1rem);
+    gap: var(--space, 1rem);
+}
+
+section#deck > * {
+    margin-top: var(--space, 1rem);
+}
+
+card#add {
+    background-image: url('../assets/icons/add.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+card {
+    width: clamp(200px, 80vw, 200px);
+    aspect-ratio: 0.8;
+    position: relative;
+
+    border: 2px solid black;
+    border-radius: 15px;
+}
+
+card > h2 {
+    text-align: center;
+}
+
+/* Nelson's images are 400x600
+ * There are 2 overlaps of 50px (head-body and body-legs)
+ * and one overlap of 25px (legs-feet)
+ *
+ * N.B. heights will vary with the new Dwarf race
+ */
+/*
+
+Dimensions
+
+Head
+400 x 150
+
+Body
+400 x 275
+top-offset: 50
+
+Legs
+400 x 200
+top: 50
+bottom: 25
+
+Feet 
+400 x 100
+
+*/
+figure {
+    margin: 0;
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 6;
+}
+
+figure > img {
+    position: relative;
+    width: 100%;
+}
+
+figure > img.head {
+    z-index: 2;
+}
+
+figure > img.body {
+    z-index: 1;
+}
+
+figure > img.body, figure > img.legs {
+    margin-top: calc(-1 * 100% / 12 * 6 / 4 );
+}
+
+figure > img.feet {
+    margin-top: calc(-1 * 100% * 1 / 24 * 6 / 4 );
+}

@@ -7,6 +7,7 @@
 	<script src="./script/nav.js"></script>
     </head>
     <body>
+
 <article id="library">
     <h1>Your Characters</h1>
     <section id="deck">
@@ -31,6 +32,41 @@
 </template>
 
 <script>
+
+window.pages = Object.create(null);
+
+["view", "create_selector", "create_name", "create_done"].forEach(pageName => {
+    Object.defineProperty(window.pages, pageName, {
+	get() {
+	    let html = fetch(`./page_templates/${pageName}.html`).then(res => res.text());
+	    Object.defineProperty(window.pages, pageName, {value: html, configurable: false, writable: false, enumerable: true});
+	    return html;
+	},
+	enumerable: false,
+	configurable: true
+    });
+});
+
+const navTo = (pageName, args = []) => {
+    let html = fetch(`./page_templates/${pageName}.html`).then(res => res.text());
+};
+
+const libraryClickHandler = (e) => {
+    const card = e.target.closest("card");
+    if (card.id === "add") {
+	navTo("selection");
+    } else {
+	navTo("view", card.id);
+    }
+};
+
+const loadLibrary = () => {
+    Object.entries(window.characters).forEach((character, idx) => createCharacterCard(...character, idx) );
+    document.getElementById("library").addEventListener("click", libraryClickHandler, {once: true});
+};
+
+const refreshLibrary = () => {};
+
 const createCharacterFigure = (images = []) => {
     const figure = document.getElementById("figureTemplate").content.cloneNode(true);
     images.forEach(imageName => {
@@ -46,14 +82,16 @@ const createCharacterFigure = (images = []) => {
     return figure;
 };
 
-const createCharacterCard = (name, images) => {
+const createCharacterCard = (name, images, idx) => {
     const card = document.getElementById("cardTemplate").content.cloneNode(true);
     card.getElementById("characterName").textContent = name;
+    card.id = idx;
     card.children[0].appendChild(createCharacterFigure(images));
     document.getElementById("deck").appendChild(card);
 };
 
-Object.entries(window.characters).forEach(character => createCharacterCard(...character) );
+loadLibrary();
+
 </script>
 
 <article id="view_placeholder"></article>

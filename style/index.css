@@ -63,6 +63,39 @@ card > h2 {
     text-align: center;
 }
 
+#create_selector > div:has(selector) {
+    height: 80%;
+    aspect-ratio: 4 / 5.2;
+}
+
+selector {
+    display: block;
+    width: 100%;
+}
+
+selector > img {
+    width: 70%;
+}
+
+selector > l-arrow,
+selector > r-arrow {
+    width: 12%;
+}
+
+
+l-arrow, r-arrow {
+    cursor: pointer;
+    width: 75px;
+    aspect-ratio: 1;
+    display: inline-block;
+    background-image: url('/assets/icons/nav_arrow.webp');
+    background-size: contain;
+}
+
+r-arrow {
+    transform: scaleX(-1);
+}
+
 /* Nelson's images are 400x600
  * There are 2 overlaps of 50px (head-body and body-legs)
  * and one overlap of 25px (legs-feet)
@@ -89,10 +122,18 @@ Feet
 400 x 100
 
 */
+
 figure {
     margin: 0;
     position: relative;
     width: 100%;
+    aspect-ratio: 4 / 6;
+}
+
+#view > figure,
+#create_done > figure {
+    width: unset;
+    height: 80%;
     aspect-ratio: 4 / 6;
 }
 

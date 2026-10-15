@@ -4,16 +4,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>DnD Character Creator</title>
 	<link rel="stylesheet" href="./style/index.css"></link>
-	<script src="./script/nav.js"></script>
+	<script src="./script/nav.js" type="module"></script>
     </head>
     <body>
-
-<article id="library">
-    <h1>Your Characters</h1>
-    <section id="deck">
-	<card id="add"></card> <!-- background plus symbol -->
-    </section>
-</article>
+<article></article>
 
 <template id="cardTemplate">
 	<card> <!-- template -->
@@ -30,70 +24,5 @@
 	<img class="feet" />
     </figure>
 </template>
-
-<script>
-
-window.pages = Object.create(null);
-
-["view", "create_selector", "create_name", "create_done"].forEach(pageName => {
-    Object.defineProperty(window.pages, pageName, {
-	get() {
-	    let html = fetch(`./page_templates/${pageName}.html`).then(res => res.text());
-	    Object.defineProperty(window.pages, pageName, {value: html, configurable: false, writable: false, enumerable: true});
-	    return html;
-	},
-	enumerable: false,
-	configurable: true
-    });
-});
-
-const navTo = (pageName, args = []) => {
-    let html = fetch(`./page_templates/${pageName}.html`).then(res => res.text());
-};
-
-const libraryClickHandler = (e) => {
-    const card = e.target.closest("card");
-    if (card.id === "add") {
-	navTo("selection");
-    } else {
-	navTo("view", card.id);
-    }
-};
-
-const loadLibrary = () => {
-    Object.entries(window.characters).forEach((character, idx) => createCharacterCard(...character, idx) );
-    document.getElementById("library").addEventListener("click", libraryClickHandler, {once: true});
-};
-
-const refreshLibrary = () => {};
-
-const createCharacterFigure = (images = []) => {
-    const figure = document.getElementById("figureTemplate").content.cloneNode(true);
-    images.forEach(imageName => {
-	const bodyPart = imageName.split(".webp")[0].split("_")[2];
-	const img = figure.querySelector(`.${bodyPart}`);
-	img.src = "./assets/character_images/" + imageName;
-	if (imageName.charAt(0) === "m") {
-	    img.alt = "male" + imageName.split(".webp")[0].replaceAll("_", " ").slice(1);
-	} else {
-	    img.alt = "female" + imageName.split(".webp")[0].replaceAll("_", " ").slice(1);
-	}
-    });
-    return figure;
-};
-
-const createCharacterCard = (name, images, idx) => {
-    const card = document.getElementById("cardTemplate").content.cloneNode(true);
-    card.getElementById("characterName").textContent = name;
-    card.id = idx;
-    card.children[0].appendChild(createCharacterFigure(images));
-    document.getElementById("deck").appendChild(card);
-};
-
-loadLibrary();
-
-</script>
-
-<article id="view_placeholder"></article>
     </body>
 </html>

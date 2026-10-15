@@ -88,7 +88,7 @@ l-arrow, r-arrow {
     width: 75px;
     aspect-ratio: 1;
     display: inline-block;
-    background-image: url('/assets/icons/nav_arrow.webp');
+    background-image: url('../assets/icons/nav_arrow.webp');
     background-size: contain;
 }
 

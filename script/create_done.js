@@ -1,5 +1,5 @@
-import { createCharacterFigure } from "/script/figure.js";
-import { navTo } from "/script/nav.js";
+import { createCharacterFigure } from "./figure.js";
+import { navTo } from "./nav.js";
 
 export { loadCreateDone };
 

@@ -1,4 +1,4 @@
-import { createCharacterFigure } from "/script/figure.js";
+import { createCharacterFigure } from "./figure.js";
 export { loadView };
 
 const loadView = () => {

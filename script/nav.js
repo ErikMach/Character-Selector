@@ -1,8 +1,8 @@
-import { loadLibrary } from "/script/library.js";
-import { loadView } from "/script/view.js";
-import { loadCreateSelector } from "/script/create_selector.js";
-import { loadCreateName } from "/script/create_name.js";
-import { loadCreateDone } from "/script/create_done.js";
+import { loadLibrary } from "./library.js";
+import { loadView } from "./view.js";
+import { loadCreateSelector } from "./create_selector.js";
+import { loadCreateName } from "./create_name.js";
+import { loadCreateDone } from "./create_done.js";
 
 export { navTo };
 

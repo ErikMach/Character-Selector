@@ -1,4 +1,4 @@
-import { navTo } from "/script/nav.js";
+import { navTo } from "./nav.js";
 
 export { loadCreateName };
 
